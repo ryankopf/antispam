@@ -24,11 +24,14 @@ module Antispam
     # PATCH/PUT /challenges/1
     def update
       if @challenge.validate?(params[:challenge][:answer])
-        # Antispam::Blacklists::Httpbl.check(request.remote_ip, provider_api_key)
+        c = Clear.create(ip: request.remote_ip, answer: params[:challenge][:answer], result: 'Passed')
         a = Antispam::Ip.find_or_create_by(address: request.remote_ip, provider: 'httpbl')
-        a.update(threat: 1, expires_at: 1.hour.from_now)
+        a.threat = [(a.threat || 0) - 25, 0].max
+        a.expires_at = 1.hour.from_now
+        a.save
         redirect_to '/'
       else
+        c = Clear.create(ip: request.remote_ip, answer: params[:challenge][:answer], result: 'Failed')
         redirect_to '/antispam/validate', notice: 'Invalid answer.'
       end
     end
