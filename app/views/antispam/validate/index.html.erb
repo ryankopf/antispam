@@ -2,7 +2,7 @@
 
 <p>Please prove that you are human.</p>
 
-<%= form_for (@challenge = Challenge.create) do |f| %>
+<%= form_for (@challenge = Antispam::Challenge.create) do |f| %>
   <%= f.hidden_field :id, value: @challenge.id %>
   <%= f.text_field :answer %>
   <%= submit_tag "Submit" %>
