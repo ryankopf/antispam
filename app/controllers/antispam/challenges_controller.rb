@@ -44,6 +44,9 @@ module Antispam
     # PATCH/PUT /challenges/1
     def update
       if @challenge.validate?(params[:challenge][:answer])
+        # Antispam::Blacklists::Httpbl.check(request.remote_ip, provider_api_key)
+        a = Antispam::Ip.find_or_create_by(address: ip, provider: 'httpbl')
+        a.update(threat: 1, expires_at: 1.hour.from_now)
         redirect_to '/'
       else
         redirect_to '/antispam/validate', notice: 'Invalid answer.'
