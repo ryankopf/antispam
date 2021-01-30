@@ -3,7 +3,9 @@ module Antispam
   module Blacklists
     class Httpbl
       def self.check(ip, key)
+        threat = 0
         begin
+          return get_old_result(ip) if get_old_result(ip)
           check = ip.split('.').reverse.join('.')
           host = key + '.' + check + ".dnsbl.httpbl.org"
           address = Resolv::getaddress(host)
@@ -11,8 +13,7 @@ module Antispam
           Rails.logger.info "Spam located: #{iptype} type at #{threat} threat. (#{ip} - #{address})"
           # Create or update
           if (threat.to_i > 30)
-            Rails.logger.info "Spamcheck: Denied!"
-            return threat.to_i
+            Rails.logger.info "Spamcheck: Very high, over 30!"
           end
         rescue Exception => e
           case e
@@ -25,11 +26,18 @@ module Antispam
             Rails.logger.info e.to_s
           end
         end
-        return 0
+        update_old_result(ip, threat)
+        return threat
+      end
+      def self.get_old_result(ip)
+        result = Antispam::Ip.find_by(address: ip, provider: 'httpbl')
+        return nil if (result.nil? || result.expired?)
+        return result.threat
+      end
+      def self.update_old_result(ip, threat)
+        result = Antispam::Ip.find_or_create_by(address: ip, provider: 'httpbl')
+        result.update(threat: threat, expires_at: 24.hours.from_now)
       end
     end
   end
 end
-
-
-
