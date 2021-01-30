@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ip: MyString
+  result: MyString
+  answer: MyString
+  threat_before: 1
+  threat_after: 1
+
+two:
+  ip: MyString
+  result: MyString
+  answer: MyString
+  threat_before: 1
+  threat_after: 1

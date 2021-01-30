@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ip:</strong>
+  <%= @clear.ip %>
+</p>
+
+<p>
+  <strong>Result:</strong>
+  <%= @clear.result %>
+</p>
+
+<p>
+  <strong>Answer:</strong>
+  <%= @clear.answer %>
+</p>
+
+<p>
+  <strong>Threat before:</strong>
+  <%= @clear.threat_before %>
+</p>
+
+<p>
+  <strong>Threat after:</strong>
+  <%= @clear.threat_after %>
+</p>
+
+<%= link_to 'Edit', edit_clear_path(@clear) %> |
+<%= link_to 'Back', clears_path %>

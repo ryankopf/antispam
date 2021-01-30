@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Clears</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ip</th>
+      <th>Result</th>
+      <th>Answer</th>
+      <th>Threat before</th>
+      <th>Threat after</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @clears.each do |clear| %>
+      <tr>
+        <td><%= clear.ip %></td>
+        <td><%= clear.result %></td>
+        <td><%= clear.answer %></td>
+        <td><%= clear.threat_before %></td>
+        <td><%= clear.threat_after %></td>
+        <td><%= link_to 'Show', clear %></td>
+        <td><%= link_to 'Edit', edit_clear_path(clear) %></td>
+        <td><%= link_to 'Destroy', clear, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Clear', new_clear_path %>

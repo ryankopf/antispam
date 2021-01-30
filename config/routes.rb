@@ -1,4 +1,5 @@
 Antispam::Engine.routes.draw do
+  resources :clears
   resources :blocks
   resources :challenges
   root to: 'ips#index'
