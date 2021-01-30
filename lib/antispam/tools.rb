@@ -1,9 +1,43 @@
 module Antispam
-  class Tools
-    before_action :check_ip_against_database
-    def check_ip_against_database
-      Rails.logger.info "Got to this function."
+  module Tools
+    # before_action :check_ip_against_database
+    def check_ip_against_database(options = {ipblacklists: {default: ''}})
+      return if skip_if_user_whitelisted
+      ip = request.remote_ip
+      # First
+      if (options[:ip_blacklists])
+        if options[:ip_blacklists][:default]
+          options[:ip_blacklists][:httpbl] = options[:ip_blacklists][:default]
+          options[:ip_blacklists].delete(:default)
+        end
+        check_ip_against_blacklists(options[:ip_blacklists], options[:verbose])
+      end
+      if (options[:scrutinize_countries_except])
 
+      end
+      Rails.logger.info "Got to this function. #{ip}"
+      puts "Got to this function. #{ip}"
     end
+    def check_ip_against_blacklists(lists, verbose)
+      lists.each do |provider_name, provider_api_key|
+        if provider_name == :httpbl
+          result = Antispam::Blacklists::Httpbl.check(get_ip_address, provider_api_key)
+          puts result if verbose
+          if (result > 1)
+            render plain: "Nothing"
+          end
+        end
+      end
+    end
+
+    def skip_if_user_whitelisted
+      if respond_to? :current_user
+        if current_user && current_user.respond_to?(:antispam_whitelisted?)
+          return true if current_user.antispam_whitelisted?
+        end
+      end
+    end
+
+
   end
 end

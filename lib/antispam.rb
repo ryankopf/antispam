@@ -1,10 +1,10 @@
 require "antispam/version"
 require "antispam/engine"
+require "antispam/tools"
+require "antispam/blacklists/httpbl"
 
 module Antispam
-  # Your code goes here...
-  #
-  ActionController.on_load(:action_controller) do
+  ActiveSupport.on_load(:action_controller) do
     # self refers to ActionController::Base here
     self.include Antispam::Tools
   end
