@@ -2,6 +2,7 @@ require_dependency "antispam/application_controller"
 
 module Antispam
   class ChallengesController < ApplicationController
+    #skip_before_filter :verify_authenticity_token
     before_action :set_challenge, only: [:show, :edit, :update, :destroy]
 
     # GET /challenges
@@ -42,11 +43,16 @@ module Antispam
 
     # PATCH/PUT /challenges/1
     def update
-      if @challenge.update(challenge_params)
-        redirect_to @challenge, notice: 'Challenge was successfully updated.'
+      if @challenge.validate?(params[:challenge][:answer])
+        redirect_to '/'
       else
-        render :edit
+        redirect_to '/antispam/validate', notice: 'Invalid answer.'
       end
+      # if @challenge.update(challenge_params)
+      #   redirect_to @challenge, notice: 'Challenge was successfully updated.'
+      # else
+      #   render :edit
+      # end
     end
 
     # DELETE /challenges/1

@@ -12,9 +12,15 @@ module Antispam
     end
     def get_image
       require "image_processing/vips"
-      # image = Vips::Image
       image = Vips::Image.text(self.answer, dpi: 300)
       image.draw_line(255, 5+rand(20).to_i, 5+rand(20).to_i, 150+rand(50).to_i, 10+rand(10).to_i)
+    end
+    def validate?(check)
+      return false if self.answer.nil?
+      result = false
+      result = true if self.answer == check
+      self.update_column(:answer,nil)
+      return result
     end
   end
 end

@@ -10,3 +10,5 @@
   <%= f.text_field :answer, value: '' %>
   <%= submit_tag "Submit" %>
 <% end %>
+
+<% flash.each do |type, msg| %><div><%= msg %></div><% end %>
