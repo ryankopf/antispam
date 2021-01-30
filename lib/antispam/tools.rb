@@ -1,7 +1,7 @@
 module Antispam
   module Tools
     # before_action :check_ip_against_database
-    def check_ip_against_database(options = {ipblacklists: {default: ''}})
+    def check_ip_against_database(options = {ip_blacklists: {default: ''}})
       return if skip_if_user_whitelisted
       ip = request.remote_ip
       # First, check IP blacklists.
@@ -21,6 +21,7 @@ module Antispam
     end
     def check_ip_against_blacklists(lists, verbose)
       lists.each do |provider_name, provider_api_key|
+        puts provider_name
         if provider_name == :httpbl
           result = Antispam::Blacklists::Httpbl.check(get_ip_address, provider_api_key)
           puts result if verbose
