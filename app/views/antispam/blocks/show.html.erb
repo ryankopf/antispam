@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ip:</strong>
+  <%= @block.ip %>
+</p>
+
+<p>
+  <strong>Provider:</strong>
+  <%= @block.provider %>
+</p>
+
+<p>
+  <strong>Controllername:</strong>
+  <%= @block.controllername %>
+</p>
+
+<p>
+  <strong>Actionname:</strong>
+  <%= @block.actionname %>
+</p>
+
+<%= link_to 'Edit', edit_block_path(@block) %> |
+<%= link_to 'Back', blocks_path %>

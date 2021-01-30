@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Blocks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ip</th>
+      <th>Provider</th>
+      <th>Controllername</th>
+      <th>Actionname</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @blocks.each do |block| %>
+      <tr>
+        <td><%= block.ip %></td>
+        <td><%= block.provider %></td>
+        <td><%= block.controllername %></td>
+        <td><%= block.actionname %></td>
+        <td><%= link_to 'Show', block %></td>
+        <td><%= link_to 'Edit', edit_block_path(block) %></td>
+        <td><%= link_to 'Destroy', block, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Block', new_block_path %>
