@@ -4,7 +4,7 @@ module Antispam
     def check_ip_against_database(options = {ipblacklists: {default: ''}})
       return if skip_if_user_whitelisted
       ip = request.remote_ip
-      # First
+      # First, check IP blacklists.
       if (options[:ip_blacklists])
         if options[:ip_blacklists][:default]
           options[:ip_blacklists][:httpbl] = options[:ip_blacklists][:default]
@@ -12,6 +12,7 @@ module Antispam
         end
         check_ip_against_blacklists(options[:ip_blacklists], options[:verbose])
       end
+      # Second, check for weird countries.
       if (options[:scrutinize_countries_except])
 
       end
