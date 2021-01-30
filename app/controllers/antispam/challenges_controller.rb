@@ -13,12 +13,9 @@ module Antispam
     def show
       respond_to do |format|
         format.html
-        format.jpg do
+        format.jpeg do
           image = @challenge.get_image
-          render content_type:  'image/jpg', plain: image.jpegsave_buffer
-          # mark = @captcha.get_blob
-          # mark = mark.scale(120, 30) if params[:sm] == "y"
-          # render content_type:  'image/gif', plain: mark.to_blob
+          render content_type: 'image/jpeg', plain: image.jpegsave_buffer
         end
       end
     end
