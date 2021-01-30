@@ -28,6 +28,7 @@ module Antispam
           puts result if verbose
           result = 31
           if (result > 30)
+            Block.create(ip: ip, provider: provider_name)
             redirect_to '/antispam/validate'
           end
         end
