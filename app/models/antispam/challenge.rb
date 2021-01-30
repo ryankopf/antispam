@@ -18,7 +18,7 @@ module Antispam
     def validate?(check)
       return false if self.answer.nil?
       result = false
-      result = true if self.answer == check
+      result = true if self.answer.downcase == check.downcase
       self.update_column(:answer,nil)
       return result
     end
