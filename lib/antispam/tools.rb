@@ -3,6 +3,7 @@ module Antispam
     # before_action :check_ip_against_database
     def check_ip_against_database(options = {ip_blacklists: {default: ''}})
       return if skip_if_user_whitelisted
+      return if controller_name == "validate"
       ip = request.remote_ip
       # First, check IP blacklists.
       if (options[:ip_blacklists])

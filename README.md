@@ -23,6 +23,10 @@ $ gem install antispam
 $ rails antispam:install:migrations
 $ rails db:migrate SCOPE=antispam
 ```
+And put this in your routes.rb
+```
+mount Antispam::Engine => "/antispam"
+```
 
 ## Development
 
