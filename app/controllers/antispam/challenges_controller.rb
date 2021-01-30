@@ -24,9 +24,10 @@ module Antispam
     # PATCH/PUT /challenges/1
     def update
       if @challenge.validate?(params[:challenge][:answer])
-        c = Clear.create(ip: request.remote_ip, answer: params[:challenge][:answer], result: 'Passed')
         a = Antispam::Ip.find_or_create_by(address: request.remote_ip, provider: 'httpbl')
+        before = a.threat
         a.threat = [(a.threat || 0) - 25, 0].max
+        c = Clear.create(ip: request.remote_ip, answer: params[:challenge][:answer], result: 'Passed', threat_before: before, threat_after: a.threat)
         a.expires_at = 1.hour.from_now
         a.save
         redirect_to '/'
