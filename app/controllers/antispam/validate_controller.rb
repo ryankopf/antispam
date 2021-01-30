@@ -1,5 +1,7 @@
+require_dependency "antispam/application_controller"
+
 module Antispam
-  class ValidateController < ::ApplicationController
+  class ValidateController < ApplicationController
     def index
       respond_to do |format|
         format.html
@@ -7,7 +9,7 @@ module Antispam
       end
     end
     def submit
-      
+
     end
   end
 end
