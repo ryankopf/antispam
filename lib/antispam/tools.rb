@@ -10,7 +10,7 @@ module Antispam
           options[:ip_blacklists][:httpbl] = options[:ip_blacklists][:default]
           options[:ip_blacklists].delete(:default)
         end
-        check_ip_against_blacklists(options[:ip_blacklists], options[:verbose])
+        check_ip_against_blacklists(ip, options[:ip_blacklists], options[:verbose])
       end
       # Second, check for weird countries.
       if (options[:scrutinize_countries_except])
@@ -19,14 +19,15 @@ module Antispam
       Rails.logger.info "Got to this function. #{ip}"
       puts "Got to this function. #{ip}"
     end
-    def check_ip_against_blacklists(lists, verbose)
+    def check_ip_against_blacklists(ip, lists, verbose)
       lists.each do |provider_name, provider_api_key|
-        puts provider_name
+        puts "Checking provider: #{provider_name}" if verbose
         if provider_name == :httpbl
-          result = Antispam::Blacklists::Httpbl.check(get_ip_address, provider_api_key)
+          result = Antispam::Blacklists::Httpbl.check(ip, provider_api_key)
           puts result if verbose
-          if (result > 1)
-            render plain: "Nothing"
+          if (result > 30)
+            redirect_to '/antispam/validate'
+            # render plain: "Nothing"
           end
         end
       end

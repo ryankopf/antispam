@@ -1,7 +1,8 @@
+require 'resolv'
 module Antispam
   module Blacklists
     class Httpbl
-      def check(ip, key)
+      def self.check(ip, key)
         begin
           check = ip.split('.').reverse.join('.')
           host = key + '.' + check + ".dnsbl.httpbl.org"
@@ -15,13 +16,12 @@ module Antispam
           end
         rescue Exception => e
           case e
-          when Resolv::ResolvError #Not spam.
-            # Okay!
+          when Resolv::ResolvError #Not spam! This blacklist gives an error when there's no spam threat.
             Rails.logger.info "Spamcheck: OK! Resolve error means the httpbl does not consider this spam."
-          when Interrupt #Something broke#exit 1
+          when Interrupt #Something broke while trying to check blacklist.
             Rails.logger.info "Spamcheck: Interrupt when trying to resolve http blacklist. Possible timeout?"
           else # Time Out
-            Rails.logger.info "Spamcheck: There was an error."
+            Rails.logger.info "Spamcheck: There was an error, possibly a time out, when checking this IP."
             Rails.logger.info e.to_s
           end
         end
