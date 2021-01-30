@@ -11,6 +11,16 @@ module Antispam
 
     # GET /challenges/1
     def show
+      respond_to do |format|
+        format.html
+        format.gif do
+          image = @challenge.get_image
+          render content_type:  'image/gif', plain: image
+          # mark = @captcha.get_blob
+          # mark = mark.scale(120, 30) if params[:sm] == "y"
+          # render content_type:  'image/gif', plain: mark.to_blob
+        end
+      end
     end
 
     # GET /challenges/new

@@ -27,6 +27,10 @@ And put this in your routes.rb
 ```
 mount Antispam::Engine => "/antispam"
 ```
+Make sure to
+```
+sudo apt install libvips-tools
+```
 
 ## Development
 

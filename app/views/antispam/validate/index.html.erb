@@ -1,9 +1,12 @@
+<% @challenge = Antispam::Challenge.create %>
 <h1>Human Challenge</h1>
 
 <p>Please prove that you are human.</p>
 
-<%= form_for (@challenge = Antispam::Challenge.create) do |f| %>
+<img src="/antispam/challenges/<%= @challenge.id %>.gif">
+
+<%= form_for @challenge do |f| %>
   <%= f.hidden_field :id, value: @challenge.id %>
-  <%= f.text_field :answer %>
+  <%= f.text_field :answer, value: '' %>
   <%= submit_tag "Submit" %>
 <% end %>
