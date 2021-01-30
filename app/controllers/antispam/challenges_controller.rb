@@ -5,11 +5,6 @@ module Antispam
     #skip_before_filter :verify_authenticity_token
     before_action :set_challenge, only: [:show, :edit, :update, :destroy]
 
-    # GET /challenges
-    def index
-      @challenges = Challenge.all
-    end
-
     # GET /challenges/1
     def show
       respond_to do |format|
@@ -23,22 +18,7 @@ module Antispam
 
     # GET /challenges/new
     def new
-      @challenge = Challenge.new
-    end
-
-    # GET /challenges/1/edit
-    def edit
-    end
-
-    # POST /challenges
-    def create
-      @challenge = Challenge.new(challenge_params)
-
-      if @challenge.save
-        redirect_to @challenge, notice: 'Challenge was successfully created.'
-      else
-        render :new
-      end
+      # use in the future for changing code
     end
 
     # PATCH/PUT /challenges/1
@@ -51,17 +31,6 @@ module Antispam
       else
         redirect_to '/antispam/validate', notice: 'Invalid answer.'
       end
-      # if @challenge.update(challenge_params)
-      #   redirect_to @challenge, notice: 'Challenge was successfully updated.'
-      # else
-      #   render :edit
-      # end
-    end
-
-    # DELETE /challenges/1
-    def destroy
-      @challenge.destroy
-      redirect_to challenges_url, notice: 'Challenge was successfully destroyed.'
     end
 
     private
@@ -72,7 +41,7 @@ module Antispam
 
       # Only allow a list of trusted parameters through.
       def challenge_params
-        params.require(:challenge).permit(:question, :answer, :code)
+        params.require(:challenge).permit(:answer, :code)
       end
   end
 end
