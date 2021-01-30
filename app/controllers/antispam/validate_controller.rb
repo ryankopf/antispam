@@ -6,5 +6,8 @@ module Antispam
         format.js { render js: 'window.location = "/antispam/validate"'}
       end
     end
+    def submit
+      
+    end
   end
 end

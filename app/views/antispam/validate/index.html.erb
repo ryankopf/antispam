@@ -2,3 +2,8 @@
 
 <p>Please prove that you are human.</p>
 
+<%= form_tag '/antispam/validate/submit' do |f| %>
+  <%= f.hidden_field :challenge_id, value: 1 %>
+  <%= f.text_field :challenge_result %>
+  <%= submit_tag "Submit" %>
+<% end %>
