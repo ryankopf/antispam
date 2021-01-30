@@ -3,7 +3,7 @@ class CreateAntispamIps < ActiveRecord::Migration[6.1]
     create_table :antispam_ips do |t|
       t.string :address
       t.string :provider
-      t.int :threat
+      t.integer :threat
       t.datetime :expires_at
 
       t.timestamps

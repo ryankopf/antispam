@@ -20,6 +20,8 @@ $ bundle
 Or install it yourself as:
 ```bash
 $ gem install antispam
+$ rails antispam:install:migrations
+$ rails db:migrate SCOPE=antispam
 ```
 
 ## Development
