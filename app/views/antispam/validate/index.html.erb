@@ -3,7 +3,7 @@
 
 <p>Please prove that you are human.</p>
 
-<img src="/antispam/challenges/<%= @challenge.id %>.jpg">
+<img src="/antispam/challenges/<%= @challenge.id %>.jpg" width="200" height="40">
 
 <%= form_for @challenge do |f| %>
   <%= f.hidden_field :id, value: @challenge.id %>

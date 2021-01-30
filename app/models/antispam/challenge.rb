@@ -14,6 +14,7 @@ module Antispam
       require "image_processing/vips"
       # image = Vips::Image
       image = Vips::Image.text(self.answer, dpi: 300)
+      image.draw_line(255, 5, 5, 150+rand(50).to_i, 10+rand(10).to_i)
     end
   end
 end
