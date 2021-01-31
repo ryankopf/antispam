@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+<div style="cx">
 <h1>Blocks</h1>
 
 <table>
@@ -27,7 +28,10 @@
     <% end %>
   </tbody>
 </table>
-
+</div>
+<div class="cx">
+  <%= render file: '/antispam/clears/index.html' %>
+</div>
 <br>
 
 <%= link_to 'New Block', new_block_path %>

@@ -2,13 +2,11 @@ require_dependency "antispam/application_controller"
 
 module Antispam
   class ChallengesController < ApplicationController
-    #skip_before_filter :verify_authenticity_token
     before_action :set_challenge, only: [:show, :edit, :update, :destroy]
 
     # GET /challenges/1
     def show
       respond_to do |format|
-        format.html
         format.jpeg do
           image = @challenge.get_image
           render content_type: 'image/jpeg', plain: image.jpegsave_buffer
