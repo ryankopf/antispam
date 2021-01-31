@@ -15,7 +15,7 @@
   </thead>
 
   <tbody>
-    <% @clears.each do |clear| %>
+    <% Clear.all.order(create_at: :desc).limit(50).each do |clear| %>
       <tr>
         <td><%= clear.ip %></td>
         <td><%= clear.result %></td>

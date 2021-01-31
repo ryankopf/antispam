@@ -15,7 +15,7 @@
   </thead>
 
   <tbody>
-    <% @blocks.each do |block| %>
+    <% Block.all.order(create_at: :desc).limit(50).each do |block| %>
       <tr>
         <td><%= block.ip %></td>
         <td><%= block.provider %></td>
@@ -30,7 +30,7 @@
 </table>
 </div>
 <div class="cx">
-  <%= render file: '/antispam/clears/index.html' %>
+  <%= render template: '/antispam/clears/index.html' %>
 </div>
 <br>
 
