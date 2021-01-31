@@ -1,9 +1,34 @@
 # Antispam
-Short description and motivation.
+The antispam gem helps prevent spam in your Rails applications by
+checking against various antispam blacklists on the web.
+You can configure which spam blacklists are checked in your application configuration.
 
 ## Usage
 
-Once installed, usage is automatic. The gem will run during any request that is not a GET request.
+The gem is used by adding this to your ApplicationController.rb
+
+```
+before_action do
+  check_ip_against_database(ip_blacklists: {default: 'yourcodehere'}, verbose: true)
+end
+```
+
+Once the filter is setup, everything else is handled for your application.
+The gem will run during any request that is not a GET request.
+
+Blacklist database lookups are cached for 24 hours, and cached results won't need
+to slowdown your app by additional http requests on the backend.
+
+The gem needs to create some database tables to function; these store the cached
+blacklist database lookups, and any actions caused by the gem.
+
+You need to add this to your routes.rb
+```
+  mount Antispam::Engine => "/antispam"
+```
+You can see what IP addresses have been blocked by going to /antispam/blocks
+but your applicationcontroller must have a user_has_role?("admin") function.
+
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -23,11 +48,8 @@ $ gem install antispam
 $ rails antispam:install:migrations
 $ rails db:migrate SCOPE=antispam
 ```
-And put this in your routes.rb
-```
-mount Antispam::Engine => "/antispam"
-```
-Make sure to
+The gem depends on image_processing, which depends on vips. We are using vips to
+generate captcha images.
 ```
 sudo apt install libvips-tools
 ```
