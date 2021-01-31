@@ -15,7 +15,7 @@
   </thead>
 
   <tbody>
-    <% Clear.all.order(create_at: :desc).limit(50).each do |clear| %>
+    <% Antispam::Clear.all.order(create_at: :desc).limit(50).each do |clear| %>
       <tr>
         <td><%= clear.ip %></td>
         <td><%= clear.result %></td>
@@ -29,7 +29,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Clear', new_clear_path %>
