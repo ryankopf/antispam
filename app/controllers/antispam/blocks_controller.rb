@@ -61,7 +61,7 @@ module Antispam
       end
       def must_be_admin
         begin
-          return false unless user_has_role?("admin")
+          return false unless is_admin?
         rescue
           return false
         end

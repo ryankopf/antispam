@@ -27,7 +27,7 @@ You need to add this to your routes.rb
   mount Antispam::Engine => "/antispam"
 ```
 You can see what IP addresses have been blocked by going to /antispam/blocks
-but your applicationcontroller must have a user_has_role?("admin") function.
+but your applicationcontroller must respond to ```is_admin?``` function.
 
 
 ## Installation
