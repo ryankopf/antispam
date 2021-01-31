@@ -27,9 +27,8 @@ module Antispam
         if provider_name == :httpbl
           result = Antispam::Blacklists::Httpbl.check(ip, provider_api_key)
           puts result if verbose
-          result = 31
           if (result > 30)
-            Block.create(ip: ip, provider: provider_name)
+            Block.create(ip: ip, provider: provider_name, threat: result)
             redirect_to '/antispam/validate'
           end
         end
