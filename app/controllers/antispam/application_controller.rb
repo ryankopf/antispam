@@ -1,10 +1,10 @@
 module Antispam
-  class ApplicationController < ActionController::Base
+  class ApplicationController < ::ApplicationController
     def must_be_admin
       begin
-        render plain: '' unless is_admin?
+        render plain: 'Not available.' unless is_admin?
       rescue
-        render plain: ''
+        render plain: 'Not available.'
       end
     end
   end
