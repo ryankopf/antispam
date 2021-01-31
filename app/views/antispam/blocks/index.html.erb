@@ -16,7 +16,7 @@
       </thead>
 
       <tbody>
-        <% Antispam::Block.all.order(create_at: :desc).limit(50).each do |block| %>
+        <% Antispam::Block.all.order(created_at: :desc).limit(50).each do |block| %>
           <tr>
             <td><%= block.ip %></td>
             <td><%= block.provider %></td>
