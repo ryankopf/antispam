@@ -22,9 +22,10 @@
         <td><%= clear.answer %></td>
         <td><%= clear.threat_before %></td>
         <td><%= clear.threat_after %></td>
-        <td><%= link_to 'Show', clear %></td>
-        <td><%= link_to 'Edit', edit_clear_path(clear) %></td>
-        <td><%= link_to 'Destroy', clear, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= time_ago_in_words clear.created_at %> ago</td>
+<!--        <td><%#= link_to 'Show', clear %></td>-->
+<!--        <td><%#= link_to 'Edit', edit_clear_path(clear) %></td>-->
+<!--        <td><%#= link_to 'Destroy', clear, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
       </tr>
     <% end %>
   </tbody>
