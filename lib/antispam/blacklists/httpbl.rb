@@ -2,15 +2,19 @@ require 'resolv'
 module Antispam
   module Blacklists
     class Httpbl
-      def self.check(ip, key)
+      def self.check(ip, key, verbose)
         threat = 0
         begin
-          return get_old_result(ip) if get_old_result(ip)
+          old_result = get_old_result(ip)
+          if old_result
+            Rails.logger.info "Returning old result for #{ip}." if verbose
+            return get_old_result(ip)
+          end
           check = ip.split('.').reverse.join('.')
           host = key + '.' + check + ".dnsbl.httpbl.org"
           address = Resolv::getaddress(host)
           z,days,threat,iptype = address.split('.')
-          Rails.logger.info "Spam located: #{iptype} type at #{threat} threat. (#{ip} - #{address})"
+          Rails.logger.info "Spam located: #{iptype} type at #{threat} threat. (#{ip} - #{address})" if verbose
           # Create or update
           if (threat.to_i > 30)
             Rails.logger.info "Spamcheck: Very high, over 30!"
