@@ -8,11 +8,6 @@ module Antispam
       @challenge = antispam_challenges(:one)
     end
 
-    test "should get index" do
-      get challenges_url
-      assert_response :success
-    end
-
     test "should get new" do
       get new_challenge_url
       assert_response :success
