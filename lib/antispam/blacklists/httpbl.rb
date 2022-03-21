@@ -15,8 +15,9 @@ module Antispam
           address = Resolv::getaddress(host)
           z,days,threat,iptype = address.split('.')
           Rails.logger.info "Spam located: #{iptype} type at #{threat} threat. (#{ip} - #{address})" if verbose
+          threat = threat.to_i
           # Create or update
-          if (threat.to_i > 30)
+          if (threat > 30)
             Rails.logger.info "Spamcheck: Very high, over 30!"
           end
         rescue Exception => e
