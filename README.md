@@ -13,8 +13,18 @@ before_action do
 end
 ```
 
+Codes are from the [httpbl](https://www.projecthoneypot.org/httpbl.php) at projecthoneypot.org
+
 Once the filter is setup, everything else is handled for your application.
-The gem will run during any request that is not a GET request.
+By default the gem will run during any request that is not a GET request.
+
+You can change the filter to run during other requests.
+
+```
+before_action do
+  check_ip_against_database(ip_blacklists: {default: 'yourcodehere'}, methods: [:get,:post,:put,:patch,:delete])
+end
+```
 
 Blacklist database lookups are cached for 24 hours, and cached results won't need
 to slowdown your app by additional http requests on the backend.
@@ -27,7 +37,7 @@ You need to add this to your routes.rb
   mount Antispam::Engine => "/antispam"
 ```
 You can see what IP addresses have been blocked by going to /antispam/blocks
-but your applicationcontroller must respond to ```is_admin?``` function.
+but your ApplicationController.rb must respond to ```is_admin?``` function.
 
 
 ## Installation
@@ -70,3 +80,14 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the Antispam project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/ryankopf/antispam/blob/master/CODE_OF_CONDUCT.md).
+
+## NO WARRANTY
+
+THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY OF ANY KIND,
+EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED TO,
+ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS,
+ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
+OR FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE
+ERROR FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO
+THE SUBJECT SOFTWARE. THIS SOFTWARE IS PROVIDED "AS IS." IF YOUR JURISDICTION
+DOES NOT ALLOW THESE LIMITATIONS THEN YOU MAY NOT USE THE SOFTWARE.
