@@ -1,6 +1,7 @@
 module Antispam
   module Tools
-    # before_action :check_ip_against_database
+    # Checks spam against an IP database of spammers.
+    # Usage: before_action :check_ip_against_database
     def check_ip_against_database(options = {ip_blacklists: {default: ''}})
       if (options[:methods])
         return if request.get? unless options[:methods].include?(:get)
@@ -28,9 +29,10 @@ module Antispam
       end
       Rails.logger.info "Completed IP database check. #{ip}" if options[:verbose]
     end
+    # Checks the specific blacklists
     def check_ip_against_blacklists(ip, lists, verbose)
       lists.each do |provider_name, provider_api_key|
-        puts "Checking provider: #{provider_name}" if verbose
+        Rails.logger.info "Checking provider: #{provider_name}" if verbose
         if provider_name == :httpbl
           result = Antispam::Blacklists::Httpbl.check(ip, provider_api_key, verbose)
           Rails.logger.info(result) if verbose
@@ -40,6 +42,20 @@ module Antispam
           end
         end
       end
+    end
+    # Checks content for spam
+    # Usage: check_content_for_spam({content: "No spam here", spamcheckers: {defendium: 'MY_API_KEY'}})
+    def check_content_for_spam(options = {spamcheckers: {defendium: 'YOUR_KEY'}})
+      Rails.logger.info "Content was nil for spamcheck." if options[:content].nil? && options[:verbose]
+      return if options[:content].nil?
+      Rails.logger.info "Spamcheckers should be a hash" if (!(options[:spamcheckers].is_a? Hash)) && options[:verbose]
+      results = []
+      options[:spamcheckers].each do |spamchecker_name, spamchecker_api_key|
+        if spamchecker_name == :defendium
+          results.append Antispam::Spamcheckers::Defendium.check(content, spamchecker_api_key, params[:verbose])
+        end
+      end
+      return results
     end
 
     def skip_if_user_whitelisted
