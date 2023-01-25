@@ -5,6 +5,6 @@ class AntispamTest < ActiveSupport::TestCase
     assert Antispam::VERSION
   end
   test "can check for spam" do
-    assert_equal [1], Antispam::Tools.check_content_for_spam(content: "buy viagram from https://viagrasite.com")
+    assert_equal true, Antispam::Checker.check({content: "buy viagra from https://viagrasite.com"}).is_spam?
   end
 end

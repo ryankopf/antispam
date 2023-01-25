@@ -43,20 +43,6 @@ module Antispam
         end
       end
     end
-    # Checks content for spam
-    # Usage: check_content_for_spam({content: "No spam here", spamcheckers: {defendium: 'MY_API_KEY'}})
-    def check_content_for_spam(options = {spamcheckers: {defendium: 'YOUR_KEY'}})
-      Rails.logger.info "Content was nil for spamcheck." if options[:content].nil? && options[:verbose]
-      return if options[:content].nil?
-      Rails.logger.info "Spamcheckers should be a hash" if (!(options[:spamcheckers].is_a? Hash)) && options[:verbose]
-      results = []
-      options[:spamcheckers].each do |spamchecker_name, spamchecker_api_key|
-        if spamchecker_name == :defendium
-          results.append Antispam::Spamcheckers::Defendium.check(content, spamchecker_api_key, params[:verbose])
-        end
-      end
-      return results
-    end
 
     def skip_if_user_whitelisted
       if respond_to? :current_user

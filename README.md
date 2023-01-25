@@ -1,9 +1,29 @@
 # Antispam
 The antispam gem helps prevent spam in your Rails applications by
-checking against various antispam blacklists on the web.
-You can configure which spam blacklists are checked in your application configuration.
+providing tools that check spam against powerful spam-prevention
+databases, accessible for free.
 
-## Usage
+The first feature checks against an IP database of spam, allowing you
+to stop spammers who are prolific and have been detected on other websites.
+It uses the blazing fast Defendium API to quickly determine if submitted
+content is spam or not.
+
+The second feature allows you to submit user-provided content to a spam
+checking service that uses machine learning and a database of content to
+determine whether the user's submitted content is spam.
+
+## Spam Content Checking - Usage
+
+```
+result = Antispam::Checker.check(content: @comment.body)
+if result.is_spam?
+  @comment.save
+else
+  redirect_to "/access_denied"
+end
+```
+
+## Bad IP Checking - Usage
 
 The gem is used by adding this to your ApplicationController.rb
 
