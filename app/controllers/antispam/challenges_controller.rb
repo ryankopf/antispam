@@ -17,6 +17,7 @@ module Antispam
     # GET /challenges/new
     def new
       # use in the future for changing code
+      head :ok
     end
 
     # PATCH/PUT /challenges/1

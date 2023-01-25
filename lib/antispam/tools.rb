@@ -1,6 +1,7 @@
 module Antispam
   module Tools
-    # before_action :check_ip_against_database
+    # Checks spam against an IP database of spammers.
+    # Usage: before_action :check_ip_against_database
     def check_ip_against_database(options = {ip_blacklists: {default: ''}})
       if (options[:methods])
         return if request.get? unless options[:methods].include?(:get)
@@ -28,9 +29,10 @@ module Antispam
       end
       Rails.logger.info "Completed IP database check. #{ip}" if options[:verbose]
     end
+    # Checks the specific blacklists
     def check_ip_against_blacklists(ip, lists, verbose)
       lists.each do |provider_name, provider_api_key|
-        puts "Checking provider: #{provider_name}" if verbose
+        Rails.logger.info "Checking provider: #{provider_name}" if verbose
         if provider_name == :httpbl
           result = Antispam::Blacklists::Httpbl.check(ip, provider_api_key, verbose)
           Rails.logger.info(result) if verbose
