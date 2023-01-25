@@ -14,13 +14,19 @@ module Antispam
     end
 
     test "should show challenge" do
-      get challenge_url(@challenge)
+      get challenge_url(@challenge, format: :jpg)
       assert_response :success
     end
 
-    test "should update challenge" do
-      patch challenge_url(@challenge), params: { challenge: { answer: @challenge.answer, code: @challenge.code, question: @challenge.question } }
-      assert_redirected_to challenge_url(@challenge)
+    test "should accept correct challenge" do
+      patch challenge_url(@challenge), params: { challenge: { answer: @challenge.answer } }
+      assert_redirected_to "/"
+      #assert_redirected_to challenge_url(@challenge)
+    end
+
+    test "should deny invalid challenge" do
+      patch challenge_url(@challenge), params: { challenge: { answer: "wronganswer" } }
+      assert_redirected_to "/antispam/validate"
     end
 
   end

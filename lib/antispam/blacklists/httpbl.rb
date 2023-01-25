@@ -18,17 +18,17 @@ module Antispam
           threat = threat.to_i
           # Create or update
           if (threat > 30)
-            Rails.logger.info "Spamcheck: Very high, over 30!"
+            Rails.logger.info "Spamcheck: Very high, over 30!" if verbose
           end
         rescue Exception => e
           case e
           when Resolv::ResolvError #Not spam! This blacklist gives an error when there's no spam threat.
-            Rails.logger.info "Spamcheck: OK! Resolve error means the httpbl does not consider this spam."
+            Rails.logger.info "Spamcheck: OK! Resolve error means the httpbl does not consider this spam." if verbose
           when Interrupt #Something broke while trying to check blacklist.
-            Rails.logger.info "Spamcheck: Interrupt when trying to resolve http blacklist. Possible timeout?"
+            Rails.logger.info "Spamcheck: Interrupt when trying to resolve http blacklist. Possible timeout?" if verbose
           else # Time Out
-            Rails.logger.info "Spamcheck: There was an error, possibly a time out, when checking this IP."
-            Rails.logger.info e.to_s
+            Rails.logger.info "Spamcheck: There was an error, possibly a time out, when checking this IP." if verbose
+            Rails.logger.info e.to_s if verbose
           end
         end
         update_old_result(ip, threat)
