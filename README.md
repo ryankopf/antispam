@@ -12,6 +12,7 @@ checking service that uses machine learning and a database of content to
 determine whether the user's submitted content is spam. It uses the blazing
 fast Defendium API to quickly determine if submitted content is spam or not.
 
+
 ## Spam Content Checking - Usage
 
 ```
