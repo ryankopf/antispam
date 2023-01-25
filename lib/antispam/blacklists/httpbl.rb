@@ -2,6 +2,7 @@ require 'resolv'
 module Antispam
   module Blacklists
     class Httpbl
+      # Returns a threat-level number, or 0 if no threat / no result.
       def self.check(ip, key, verbose)
         threat = 0
         begin

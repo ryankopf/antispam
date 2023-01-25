@@ -2,6 +2,7 @@
 module Antispam
   module Spamcheckers
     class Defendium
+      # Returns a boolean, 1 for spam, 0 for not spam.
       def self.check(content, key, verbose)
         # nethttp2.rb
         require 'uri'

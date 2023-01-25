@@ -31,19 +31,17 @@ module Antispam
     end
     # Checks the specific blacklists
     def check_ip_against_blacklists(ip, lists, verbose)
+      results = []
       lists.each do |provider_name, provider_api_key|
         Rails.logger.info "Checking provider: #{provider_name}" if verbose
-        if provider_name == :httpbl
-          result = Antispam::Blacklists::Httpbl.check(ip, provider_api_key, verbose)
-          Rails.logger.info(result) if verbose
-          if (result > 30)
-            Block.create(ip: ip, provider: provider_name, threat: result)
-            redirect_to '/antispam/validate'
-          end
-        end
+        results.append blacklist(provider_name).check(ip, provider_api_key, verbose)
+      end
+      result = Antispam::BlacklistResult.new(results)
+      if result.is_bad?
+        Block.create(ip: ip, provider: lists.keys.first, threat: result)
+        redirect_to '/antispam/validate'
       end
     end
-
     def skip_if_user_whitelisted
       if respond_to? :current_user
         if current_user && current_user.respond_to?(:antispam_whitelisted?)
@@ -51,7 +49,11 @@ module Antispam
         end
       end
     end
-
-
+    def blacklist(provider)
+      class_name = provider.to_s.camelize
+      raise Antispam::NoSuchBlacklistError unless Antispam::Blacklists.const_defined? class_name
+      Antispam::Blacklists.const_get class_name
+    end
   end
+  class NoSuchBlacklistError < StandardError; end
 end
