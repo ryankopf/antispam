@@ -45,7 +45,9 @@ By default the gem will run during any request that is not a GET request.
 When a POST/PATCH/ETC (non-GET) request comes in, the IP blacklist is checked
 to see if the poster is on a spam blacklist. If the poster is on the blacklist
 then the request is automatically blocked and redirected to a captcha page. A
-real user can then enter the captcha to bypass the block.
+real user can then enter the captcha to bypass the block. In the future other
+captcha options may be supported, such as mechanical (hashing) captcha and
+other types of invisible captcha.
 
 Eventually configurable settings may be in place to give other options when
 a spammy IP is detected, but the current defaults are set to only block spam
