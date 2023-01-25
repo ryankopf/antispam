@@ -10,17 +10,20 @@ It relies on the lightning-quick httpbl from Project Honey Pot.
 The second feature allows you to submit user-provided content to a spam
 checking service that uses machine learning and a database of content to
 determine whether the user's submitted content is spam. It uses the blazing
-fast Defendium API to quickly determine if submitted content is spam or not.
+fast Defendium API I created to quickly determine if submitted content is
+spam or not. Defendium's [pricing](https://defendium.com/pricing) is free
+for up to 1,000 API calls per day, which should be sufficient for 99% of users.
 
+The two features are optional, and you can use either one without the other.
 
 ## Spam Content Checking - Usage
 
 ```
 result = Antispam::Checker.check(content: @comment.body)
 if result.is_spam?
-  @comment.save
-else
   redirect_to "/access_denied"
+else
+  @comment.save
 end
 ```
 
