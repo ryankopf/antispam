@@ -1,6 +1,6 @@
 module Antispam
   class Ip < ApplicationRecord
-    before_initialize :set_default_expires_at
+    after_initialize :set_default_expires_at
     def expired?
       self.expires_at < Time.now
     end
