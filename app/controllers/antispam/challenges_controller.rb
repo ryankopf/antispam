@@ -2,7 +2,7 @@ require_dependency "antispam/application_controller"
 
 module Antispam
   class ChallengesController < ApplicationController
-    before_action :set_challenge, only: [:show, :edit, :update, :destroy]
+    before_action :set_challenge, only: [:show, :edit, :update]
 
     # GET /challenges/1
     def show
