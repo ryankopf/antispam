@@ -100,6 +100,18 @@ generate captcha images.
 sudo apt install libvips-tools
 ```
 
+You need to add this to your routes.rb
+```
+  mount Antispam::Engine => "/antispam"
+```
+
+Then add to your application controller:
+```
+before_action do
+  check_ip_against_database(ip_blacklists: {default: 'your_api_key_here'}, verbose: true)
+end
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
