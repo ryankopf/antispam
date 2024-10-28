@@ -4,7 +4,17 @@
   <title>Antispam</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-  <style>.row { width:100%;display: flex;} .cx { width: 50%; }</style>
+  <style>
+  .row { width:100%;display: flex;}
+  .cx { width: 50%; }
+  .centerblock {
+    box-shadow: 1px 1px 7px #000;
+    max-width: 300px;
+    margin: 3em auto;
+    padding: 0.5em 2em 2em;
+    width: 100%;
+  }
+  </style>
   <%#= stylesheet_link_tag    "antispam/application", media: "all" %>
 </head>
 <body>

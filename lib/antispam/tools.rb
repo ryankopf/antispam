@@ -13,7 +13,7 @@ module Antispam
         return if request.get?
       end
       return if skip_if_user_whitelisted
-      return if controller_name == "validate"
+      return if controller_name.in?["validate","challenges"]
       ip = request.remote_ip
       # First, check IP blacklists.
       if (options[:ip_blacklists])

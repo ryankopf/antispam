@@ -33,11 +33,12 @@ The gem is used by adding this to your ApplicationController.rb
 
 ```
 before_action do
-  check_ip_against_database(ip_blacklists: {default: 'yourcodehere'}, verbose: true)
+  check_ip_against_database(ip_blacklists: {default: 'your_api_key_here'}, verbose: true)
 end
 ```
 
-Codes are from the [httpbl](https://www.projecthoneypot.org/httpbl.php) at projecthoneypot.org
+API Keys can be obtained by visiting the [httpbl](https://www.projecthoneypot.org/httpbl.php)
+at projecthoneypot.org
 
 Once the filter is setup, everything else is handled for your application.
 By default the gem will run during any request that is not a GET request.

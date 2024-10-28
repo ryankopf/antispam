@@ -1,4 +1,5 @@
 <% @challenge = Antispam::Challenge.create %>
+<div class="centerblock">
 <h1>Human Challenge</h1>
 
 <p>Please prove that you are human.</p>
@@ -12,3 +13,4 @@
 <% end %>
 
 <% flash.each do |type, msg| %><div><%= msg %></div><% end %>
+</div>
