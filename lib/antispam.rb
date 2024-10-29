@@ -7,12 +7,15 @@ require "antispam/spamcheckers/defendium"
 require "antispam/results"
 
 module Antispam
-  ActiveSupport.on_load(:action_controller) do
-    Rails.application.config.to_prepare do
-      unless ApplicationController.method_defined?(:is_admin?)
-        raise "Antispam Error: ApplicationController must define `is_admin?` method to use Antispam."
+  ActiveSupport.on_load(:action_controller_base) do
+    # Include Antispam::Tools into the application's ApplicationController
+    # Use ::ApplicationController to reference the top-level class
+    if defined?(::ApplicationController)
+      ::ApplicationController.include Antispam::Tools
+    else
+      Rails.application.config.to_prepare do
+        ::ApplicationController.include Antispam::Tools
       end
-      ActionController::Base.send(:include, Antispam::Tools)
     end
   end
 end
