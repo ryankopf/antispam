@@ -8,32 +8,31 @@ module Antispam
         scrutinize_countries_except: nil,
         verbose: false
       )
-      if (options[:methods])
-        return if request.get? unless options[:methods].include?(:get)
-        return if request.post? unless options[:methods].include?(:post)
-        return if request.put? unless options[:methods].include?(:put)
-        return if request.patch? unless options[:methods].include?(:patch)
-        return if request.delete? unless options[:methods].include?(:delete)
+      if methods
+        return if request.get? && !methods.include?(:get)
+        return if request.post? && !methods.include?(:post)
+        return if request.put? && !methods.include?(:put)
+        return if request.patch? && !methods.include?(:patch)
+        return if request.delete? && !methods.include?(:delete)
       else
         return if request.get?
       end
+    
       return if skip_if_user_whitelisted
-      return if controller_name.in?["validate","challenges"]
+      return if controller_name.in?(%w[validate challenges])
+    
       ip = request.remote_ip
-      # First, check IP blacklists.
-      if (options[:ip_blacklists])
-        if options[:ip_blacklists][:default]
-          options[:ip_blacklists][:httpbl] = options[:ip_blacklists][:default]
-          options[:ip_blacklists].delete(:default)
-        end
-        check_ip_against_blacklists(ip, options[:ip_blacklists], options[:verbose])
+    
+      # Handle IP blacklists
+      if ip_blacklists
+        ip_blacklists[:httpbl] ||= ip_blacklists.delete(:default)
+        check_ip_against_blacklists(ip, ip_blacklists, verbose)
       end
-      # Second, check for weird countries.
-      if (options[:scrutinize_countries_except])
-
-      end
-      Rails.logger.info "Completed IP database check. #{ip}" if options[:verbose]
-    end
+    
+      # Country checks, if necessary
+      # (expand logic as needed)
+      Rails.logger.info "Completed IP database check. #{ip}" if verbose
+    end    
     # Checks the specific blacklists
     def check_ip_against_blacklists(ip, lists, verbose)
       results = []
