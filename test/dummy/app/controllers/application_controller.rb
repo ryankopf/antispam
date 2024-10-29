@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action do
     # CODE FOR TESTING PURPOSES ONLY. DO NOT USE IN PRODUCTION.
     # GET YOUR OWN CODE AT projecthoneypot.org
-    check_ip_against_database({ip_blacklists: {default: 'jbbqkzmcyeca'}, verbose: true})
+    check_ip_against_database(ip_blacklists: {default: 'jbbqkzmcyeca'}, verbose: true)
   end
 
   def test_bad

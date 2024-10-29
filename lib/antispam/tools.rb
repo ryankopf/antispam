@@ -2,7 +2,12 @@ module Antispam
   module Tools
     # Checks spam against an IP database of spammers.
     # Usage: before_action :check_ip_against_database
-    def check_ip_against_database(options = {ip_blacklists: {default: ''}})
+    def check_ip_against_database(
+        ip_blacklists: { default: '' },
+        methods: nil,
+        scrutinize_countries_except: nil,
+        verbose: false
+      )
       if (options[:methods])
         return if request.get? unless options[:methods].include?(:get)
         return if request.post? unless options[:methods].include?(:post)
