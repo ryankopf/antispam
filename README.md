@@ -108,7 +108,7 @@ You need to add this to your routes.rb
 Then add to your application controller:
 ```
 before_action do
-  check_ip_against_database(ip_blacklists: {default: 'your_api_key_here'}, verbose: true)
+  check_ip_against_database({ip_blacklists: {default: 'your_api_key_here'}, verbose: true})
 end
 ```
 
