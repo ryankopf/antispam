@@ -12,7 +12,7 @@ module Antispam
       unless ApplicationController.method_defined?(:is_admin?)
         raise "Antispam Error: ApplicationController must define `is_admin?` method to use Antispam."
       end
-      ActionController::Base.include Antispam::Tools
+      ActionController::Base.send(:include, Antispam::Tools)
     end
   end
 end
