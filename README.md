@@ -84,28 +84,29 @@ gem 'antispam'
 ```
 
 And then execute:
-```bash
-$ bundle
-```
 
-Or install it yourself as:
 ```bash
 $ gem install antispam
 $ rails antispam:install:migrations
+$ rails antispam:install
 $ rails db:migrate SCOPE=antispam
 ```
+
 The gem depends on image_processing, which depends on vips. We are using vips to
 generate captcha images.
+
 ```
 sudo apt install libvips-tools
 ```
 
-You need to add this to your routes.rb
+To be able to view recent spam-blocking activity, you need to add antispam to your routes.rb
+
 ```
   mount Antispam::Engine => "/antispam"
 ```
 
-Then add to your application controller:
+Then add the following to your application controller:
+
 ```
 before_action do
   check_ip_against_database(ip_blacklists: {default: 'your_api_key_here'}, verbose: true)
