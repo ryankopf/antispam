@@ -21,7 +21,7 @@ module Antispam
       spamscore
     end
     def safe?
-      self.spamscore <= 50
+      self.spamscore < 50
     end
   end
 end
