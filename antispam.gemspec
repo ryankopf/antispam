@@ -22,5 +22,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", ">= 6.1.0"
   spec.add_dependency "image_processing", "~> 1.0"
+  spec.add_dependency "csv"
   spec.add_development_dependency "net-http"
 end
