@@ -2,7 +2,7 @@ module Antispam
   class Iplocator < ApplicationRecord
 
     def self.get_country(ip_integer)
-      ip = Iplocator.find_by("? > ip_from AND ? < ip_to",ip,ip)
+      ip = Iplocator.find_by("? > ip_from AND ? < ip_to",ip_integer,ip_integer)
       return nil if ip.nil?
       ip.country_code
     end
