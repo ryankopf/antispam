@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.summary     = "A spam prevention gem."
   spec.description = <<~DESC
   Antispam helps prevent spam in your Rails applications by checking against DNS blacklists 
-  and spam-prevention databases.
-
+  and spam-prevention databases.<br>
+  <br>
   Key features:
   - IP-based spam detection using Project Honey Pot to block known spammers automatically.
   - Content-based spam detection using Defendium's machine learning API (free for up to 
