@@ -7,7 +7,21 @@ Gem::Specification.new do |spec|
   spec.email       = ["antispam@ryankopf.com"]
   spec.homepage    = "https://ryankopf.com"
   spec.summary     = "A spam prevention gem."
-  spec.description = "Antispam checks DNS blacklists and helps prevent spam on your site."
+  spec.description = <<~DESC
+  Antispam helps prevent spam in your Rails applications by checking against DNS blacklists 
+  and spam-prevention databases.
+
+  Key features:
+  - IP-based spam detection using Project Honey Pot to block known spammers automatically.
+  - Content-based spam detection using Defendium's machine learning API (free for up to 
+    1,000 checks per day).
+  - Blacklist lookups are cached for 24 hours to minimize performance impact.
+
+  The gem integrates seamlessly with Rails, allowing you to block spam at the request level 
+  and redirect flagged users to a captcha page.
+
+  See the README for more details.
+DESC
   spec.license     = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
