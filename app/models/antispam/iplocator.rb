@@ -10,7 +10,7 @@ module Antispam
     def self.import
       require 'csv'
       file_path = File.expand_path('../../../ip-to-country.csv', __FILE__)
-      csv_data = CSV.parse(file.read);
+      csv_data = CSV.parse(file_path, headers: false)
       csv_data.each do |row|
         Iplocator.create(
           ip_from: IPAddr.new(row[0]).to_i,
