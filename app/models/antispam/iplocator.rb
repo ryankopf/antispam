@@ -9,7 +9,7 @@ module Antispam
 
     def self.import
       require 'csv'
-      file_path = File.expand_path('../../../ip-to-country.csv', __FILE__)
+      file_path = File.expand_path('../../../../ip-to-country.csv', __FILE__)
       csv_data = CSV.read(file_path, headers: false)
       csv_data.each do |row|
         begin
