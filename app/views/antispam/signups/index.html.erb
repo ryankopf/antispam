@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Signups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User ID</th>
+      <th>IP</th>
+      <th>Country Code</th>
+      <th>Number from this IP</th>
+      <th>Created At</th>
+      <th>Updated At</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @signups.each do |signup| %>
+      <tr>
+        <td><%= signup.user_id %></td>
+        <td><%= signup.ip %></td>
+        <td><%= signup.country_code %></td>
+        <td><%= signup.number_from_this_ip %></td>
+        <td><%= signup.created_at %></td>
+        <td><%= signup.updated_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
