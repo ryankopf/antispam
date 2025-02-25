@@ -12,7 +12,7 @@
       <th>Created At</th>
       <th>Updated At</th>
       <th>Safe?</th>
-      <th>Score</th>
+      <th>Spamscore</th>
     </tr>
   </thead>
 
@@ -26,7 +26,7 @@
         <td><%= signup.created_at.strftime("%Y-%m-%d %I:%M %p") %></td>
         <td><%= signup.updated_at.strftime("%Y-%m-%d %I:%M %p") %></td>
         <td><%= signup.safe? %></td>
-        <td><%= signup.score %></td>
+        <td><%= signup.spamscore %></td>
       </tr>
     <% end %>
   </tbody>
