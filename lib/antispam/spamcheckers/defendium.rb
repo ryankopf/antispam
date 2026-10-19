@@ -2,11 +2,12 @@
 module Antispam
   module Spamcheckers
     class Defendium
-      # Returns a boolean, 1 for spam, 0 for not spam.
+      # Returns 1 for spam, 0 for not spam.
       def self.check(content, key, verbose)
         # nethttp2.rb
         require 'uri'
         require 'net/http'
+        require 'json'
 
         uri = URI('https://api.defendium.com/check')
         params = { secret_key: key, content: content }
@@ -14,7 +15,7 @@ module Antispam
 
         res = Net::HTTP.get_response(uri)
         if res.is_a?(Net::HTTPSuccess)
-          result = res.body.to_json
+          result = JSON.parse(res.body)
           if result["warnings"]
             Rails.logger.info result["warnings"]
           end
